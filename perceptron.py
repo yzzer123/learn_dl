@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-
-from __future__ import print_function
+# 激活函数
+# from __future__ import print_function
 from functools import reduce
 
 
@@ -17,6 +17,7 @@ class VectorOp(object):
         # 首先把x[x1,x2,x3...]和y[y1,y2,y3,...]按元素相乘
         # 变成[x1*y1, x2*y2, x3*y3]
         # 然后利用reduce求和
+        
         return reduce(lambda a, b: a + b, VectorOp.element_multiply(x, y), 0.0)
 
     @staticmethod
@@ -44,6 +45,7 @@ class VectorOp(object):
         """
         将向量v中的每个元素和标量s相乘
         """
+        
         return map(lambda e: e * s, v)
 
 
@@ -152,3 +154,4 @@ if __name__ == '__main__':
     print('0 and 0 = %d' % and_perception.predict([0, 0]))
     print('1 and 0 = %d' % and_perception.predict([1, 0]))
     print('0 and 1 = %d' % and_perception.predict([0, 1]))
+    
