@@ -1,16 +1,10 @@
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
 
-from perceptron import Perceptron
+from my_perception import Perception
 
+class LinearUnit(Perception):
 
-#定义激活函数f
-f = lambda x: x
-
-class LinearUnit(Perceptron):
-    def __init__(self, input_num):
-        '''初始化线性单元，设置输入参数的个数'''
-        Perceptron.__init__(self, input_num, f)
+    def __init__(self, weight_size):
+        super().__init__(lambda x:x, weight_size)
 
 
 def get_training_dataset():
@@ -31,24 +25,33 @@ def train_linear_unit():
     '''
     # 创建感知器，输入参数的特征数为1（工作年限）
     lu = LinearUnit(1)
-    # 训练，迭代10轮, 学习速率为0.01
-    input_vecs, labels = get_training_dataset()
-    lu.train(input_vecs, labels, 10, 0.01)
+
+    # 训练，迭代20轮, 学习速率为0.01
+    features, targets = get_training_dataset()
+    lu.train(features,targets,0.01, 20)
     #返回训练好的线性单元
     return lu
 
 
 def plot(linear_unit):
     import matplotlib.pyplot as plt
-    input_vecs, labels = get_training_dataset()
+    # input_vecs, labels = get_training_dataset()
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111)
+    # ax.scatter(list(map(lambda x: x[0], input_vecs)), labels)
+    # weights = linear_unit.weights
+    # bias = linear_unit.bias
+    # x = range(0,12,1)
+    # y =list( map(lambda x:weights[0] * x + bias, x))
+    # ax.plot(x, y)
+    # plt.show()
+    features, targets = get_training_dataset()
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    ax.scatter(list(map(lambda x: x[0], input_vecs)), labels)
-    weights = linear_unit.weights
-    bias = linear_unit.bias
-    x = range(0,12,1)
-    y =list( map(lambda x:weights[0] * x + bias, x))
-    ax.plot(x, y)
+    ax.scatter(list(map(lambda x:x[0], features)),targets)
+    x = list(range(0,12))
+    y = [ linear_unit.predict([i]) for i in x]
+    ax.plot(x,y)
     plt.show()
 
 
